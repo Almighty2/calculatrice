@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title>Calculatrice</title>
+	<style>
+		* {
+			font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+			font-size: 16px;
+		}
+		table {
+			background: #454545;
+			padding: 10px;
+			border-radius: 10px;
+			border-spacing: 5px;
+		}
+		input, #result {
+			background: #eaeaea;
+			border: 0;
+			height: 20px;
+			padding: 2px 5px;
+		}
+
+		button {
+			background-color: #eaeaea;
+			border: 0;
+			border-radius: 5px;
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<td colspan="3">
+					<input type="text" value="" id="formule" />
+				</td>
+				<td>
+					<div id="result"></div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td colspan="3">
+					<button onclick="erase()">Effacer Tout</button>
+				</td>
+				<td>
+					<button onclick="click_touch('/');">/</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button onclick="click_touch(7);">7</button> 
+				</td>
+				<td>
+					<button onclick="click_touch(8);">8</button> 
+				</td>
+				<td>
+					<button onclick="click_touch(9);">9</button> 
+				</td>
+				<td>
+					<button onclick="click_touch('*');">*</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button onclick="click_touch(4);">4</button>
+				</td>
+				<td>
+					<button onclick="click_touch(5);">5</button>
+				</td>
+				<td>
+					<button onclick="click_touch(6);">6</button> 
+				</td>
+				<td>
+					<button onclick="click_touch('-');">-</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button onclick="click_touch(1);">1</button>
+				</td>
+				<td>
+					<button onclick="click_touch(2);">2</button> 
+				</td>
+				<td>
+					<button onclick="click_touch(3);">3</button> 
+				</td>
+				<td>
+					<button onclick="click_touch('+');">+</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<button onclick="click_touch(0);">0</button>
+				</td>
+				<td>
+					<button id="egal" onclick="egal();">=</button> 
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<script>
+		var operators= ['+','-','*','/'];
+		var formule_el = document.getElementById("formule");
+		var result_el = document.getElementById("result");
+
+		function click_touch(value){		
+			
+			if (result_el.textContent.length > 0)
+			{
+				
+				formule_el.value = "";
+				
+				if(operators.indexOf(value) != -1){
+					
+					formule_el.value = result_el.textContent;
+				}
+				
+				
+				result_el.textContent = "";
+			}
+			
+			formule_el.value += value; 
+		}
+		
+		
+		function egal(){
+			var chiffre = formule_el.value;
+			
+			if(operators.indexOf(chiffre.charAt(chiffre.length-1 )) !=-1 ){
+				
+				formule_el.value = formule_el.value + eval(chiffre.substring(0,chiffre.length-1));
+			}
+			result_el.textContent = eval(formule_el.value);
+		}
+		
+		
+		function erase(){
+			formule_el.value = "";
+			result_el.textContent = "";
+		}
+	</script>
+</body>
+</html>
